@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Care Blog | TineyTails</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Quicksand', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+<nav class="bg-white shadow-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16 items-center">
+            <div class="flex items-center">
+                <a href="index.html" class="text-2xl font-bold text-orange-500">🐾 TineyTails</a>
+            </div>
+
+            <div class="hidden md:flex space-x-8 font-semibold text-gray-700">
+                <a href="index.html" class="hover:text-orange-500 transition">Home</a>
+                <a href="shop.html" class="hover:text-orange-500 transition">Shop</a>
+                <a href="about.html" class="hover:text-orange-500 transition">About</a>
+                <a href="blog.html" class="hover:text-orange-500 transition">Blog</a>
+                <a href="contact.html" class="hover:text-orange-500 transition">Contact</a>
+            </div>
+
+            <div class="md:hidden flex items-center">
+                <button id="open-menu" class="text-gray-700 hover:text-orange-500">
+                    <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="menu-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-[60] hidden transition-opacity duration-300"></div>
+
+    <div id="mobile-drawer" class="fixed top-0 right-0 h-full w-64 bg-white z-[70] shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out md:hidden">
+        <div class="p-6">
+            <div class="flex justify-end mb-8">
+                <button id="close-menu" class="text-gray-500 hover:text-orange-500">
+                    <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <div class="flex flex-col space-y-6 text-left">
+                <a href="index.html" class="text-lg font-bold text-gray-800 border-b pb-2">Home</a>
+                <a href="shop.html" class="text-lg font-bold text-gray-800 border-b pb-2">Shop</a>
+                <a href="about.html" class="text-lg font-bold text-gray-800 border-b pb-2">About</a>
+                <a href="blog.html" class="text-lg font-bold text-gray-800 border-b pb-2">Blog</a>
+                <a href="contact.html" class="text-lg font-bold text-gray-800 border-b pb-2">Contact</a>
+                
+                <button onclick="window.location.href='tel:+919999999999'" class="mt-4 bg-orange-500 text-white py-3 rounded-xl font-bold">
+                    Call Us Now
+                </button>
+            </div>
+        </div>
+    </div>
+</nav>
+
+    <header class="bg-blue-50 py-16">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <h1 class="text-4xl font-bold text-gray-800 mb-4">The TineyTails Blog 🐾</h1>
+            <p class="text-lg text-gray-600">Expert advice, pet health tips, and fun stories for pet parents.</p>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-6 py-16">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            
+            <article class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition duration-300">
+                <img src="https://images.unsplash.com/photo-1548191265-cc70d3d45ba1?auto=format&fit=crop&q=80&w=600" alt="Dog Health" class="w-full h-52 object-cover">
+                <div class="p-6">
+                    <span class="text-orange-500 text-sm font-bold uppercase tracking-wider">Health</span>
+                    <h2 class="text-2xl font-bold text-gray-800 mt-2 mb-3">5 Tips for a Shiny Dog Coat</h2>
+                    <p class="text-gray-600 mb-4">Discover the best food and grooming habits to keep your dog's fur soft and healthy...</p>
+                    <a href="#" class="text-orange-600 font-bold hover:underline">Read More →</a>
+                </div>
+            </article>
+
+            <article class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition duration-300">
+                <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&q=80&w=600" alt="Cat Care" class="w-full h-52 object-cover">
+                <div class="p-6">
+                    <span class="text-orange-500 text-sm font-bold uppercase tracking-wider">Cats</span>
+                    <h2 class="text-2xl font-bold text-gray-800 mt-2 mb-3">Why Does Your Cat Meow?</h2>
+                    <p class="text-gray-600 mb-4">Understanding feline communication and what your cat is trying to tell you...</p>
+                    <a href="#" class="text-orange-600 font-bold hover:underline">Read More →</a>
+                </div>
+            </article>
+
+            <article class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition duration-300">
+                <img src="https://imgs.search.brave.com/DFbA58urJDJOrEZfkBfI14Z20uri--16BA0RJhHZE7s/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly9wZXRz/d29ybGQuaW4vY2Ru/L3Nob3AvYXJ0aWNs/ZXMvUHctYmxvZy1m/aW5hbC5qcGc_dj0x/NzI5NzUzMDczJndp/ZHRoPTEwNTA" alt="Pet Accessories" class="w-full h-52 object-cover">
+                <div class="p-6">
+                    <span class="text-orange-500 text-sm font-bold uppercase tracking-wider">Shopping</span>
+                    <h2 class="text-2xl font-bold text-gray-800 mt-2 mb-3">Best Accessories for Puppies</h2>
+                    <p class="text-gray-600 mb-4">A complete checklist of everything your new puppy needs in their first week...</p>
+                    <a href="#" class="text-orange-600 font-bold hover:underline">Read More →</a>
+                </div>
+            </article>
+
+        </div>
+
+        <div class="mt-20 bg-orange-500 rounded-3xl p-10 text-center text-white">
+            <h2 class="text-3xl font-bold mb-4">Join Our Pet Community</h2>
+            <p class="mb-8 opacity-90">Get weekly pet care tips and exclusive discounts directly to your inbox.</p>
+            <form class="max-w-md mx-auto flex flex-col sm:flex-row gap-4">
+                <input type="email" placeholder="Enter your email" class="flex-grow px-6 py-3 rounded-full text-gray-800 focus:outline-none">
+                <button type="submit" class="bg-gray-800 text-white px-8 py-3 rounded-full font-bold hover:bg-gray-900 transition">Subscribe</button>
+            </form>
+        </div>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-10">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <p class="text-xl font-bold mb-4">TineyTails 🐾</p>
+            <p class="text-gray-400">© 2024 TineyTails Pet Shop. All rights reserved.</p>
+        </div>
+    </footer>
+
+
+<!-- this is for navbar code start  -->
+
+<script>
+    const openBtn = document.getElementById('open-menu');
+    const closeBtn = document.getElementById('close-menu');
+    const drawer = document.getElementById('mobile-drawer');
+    const overlay = document.getElementById('menu-overlay');
+
+    function toggleMenu() {
+        // Toggle the translate-x-full class to slide the drawer
+        drawer.classList.toggle('translate-x-full');
+        // Toggle overlay visibility
+        overlay.classList.toggle('hidden');
+    }
+
+    openBtn.addEventListener('click', toggleMenu);
+    closeBtn.addEventListener('click', toggleMenu);
+    overlay.addEventListener('click', toggleMenu); // Close if user clicks background
+</script>
+
+<!-- this is for navbar code End  -->
+
+</body>
+</html>

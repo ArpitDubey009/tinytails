@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TineyTails | Your Premium Pet Shop</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Quicksand', sans-serif; overflow-x: hidden; }
+      @keyframes moveLR {
+        from { transform: translateX(-100px) rotate(0deg); opacity: 0; }
+        10% { opacity: 0.4; }
+        90% { opacity: 0.4; }
+        to { transform: translateX(100vw) rotate(360deg); opacity: 0; }
+    }
+
+    @keyframes moveRL {
+        from { transform: translateX(100vw) rotate(0deg); opacity: 0; }
+        10% { opacity: 0.4; }
+        90% { opacity: 0.4; }
+        to { transform: translateX(-100px) rotate(-360deg); opacity: 0; }
+    }
+
+    @keyframes moveUD {
+        from { transform: translateY(-100px); opacity: 0; }
+        10% { opacity: 0.4; }
+        90% { opacity: 0.4; }
+        to { transform: translateY(400px); opacity: 0; }
+    }
+
+    .paw-icon {
+        position: absolute;
+        pointer-events: none;
+        color: #f97316; /* Orange-500 */
+        filter: blur(0.5px);
+    }
+    /* Bubble Float Animation */
+    @keyframes floatUp {
+        from { transform: translateY(0); opacity: 0; }
+        10% { opacity: 0.6; }
+        90% { opacity: 0.6; }
+        to { transform: translateY(-100vh); opacity: 0; }
+    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+<nav class="bg-white shadow-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16 items-center">
+            <div class="flex items-center">
+                <a href="index.html" class="text-2xl font-bold text-orange-500">🐾 TineyTails</a>
+            </div>
+            <div class="hidden md:flex space-x-8 font-semibold text-gray-700">
+                <a href="index.html" class="hover:text-orange-500 transition">Home</a>
+                <a href="shop.html" class="hover:text-orange-500 transition">Shop</a>
+                <a href="about.html" class="hover:text-orange-500 transition">About</a>
+                <a href="blog.html" class="hover:text-orange-500 transition">Blog</a>
+                <a href="contact.html" class="hover:text-orange-500 transition">Contact</a>
+            </div>
+            <div class="md:hidden flex items-center">
+                <button id="open-menu" class="text-gray-700 hover:text-orange-500">
+                    <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div id="menu-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-[60] hidden transition-opacity duration-300"></div>
+    <div id="mobile-drawer" class="fixed top-0 right-0 h-full w-64 bg-white z-[70] shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out md:hidden">
+        <div class="p-6">
+            <div class="flex justify-end mb-8"><button id="close-menu" class="text-gray-500 hover:text-orange-500"><svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg></button></div>
+            <div class="flex flex-col space-y-6 text-left">
+                <a href="index.html" class="text-lg font-bold text-gray-800 border-b pb-2">Home</a>
+                <a href="shop.html" class="text-lg font-bold text-gray-800 border-b pb-2">Shop</a>
+                <a href="about.html" class="text-lg font-bold text-gray-800 border-b pb-2">About</a>
+                <a href="blog.html" class="text-lg font-bold text-gray-800 border-b pb-2">Blog</a>
+                <a href="contact.html" class="text-lg font-bold text-gray-800 border-b pb-2">contact</a>
+                <button onclick="window.location.href='tel:+917838215474'" class="mt-4 bg-orange-500 text-white py-3 rounded-xl font-bold">Call Us Now</button>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<header class="relative w-full h-[600px] md:h-[700px] overflow-hidden flex items-center">
+    <div id="hero-carousel" class="absolute inset-0 z-0">
+        <img src="https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?auto=format&fit=crop&q=80&w=1200" class="hero-img absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-100 brightness-75">
+        <img src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&q=80&w=1200" class="hero-img absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0 brightness-75">
+        <img src="https://images.unsplash.com/photo-1544568100-847a948585b9?auto=format&fit=crop&q=80&w=1200" class="hero-img absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0 brightness-75">
+    </div>
+    <div class="relative z-10 max-w-7xl mx-auto px-6 w-full">
+        <div class="md:w-3/4 p-8 md:p-12 rounded-3xl"> 
+            <h1 class="text-4xl md:text-7xl font-bold text-white leading-tight mb-4 drop-shadow-lg">Everything Your <br><span id="typewriter" class="text-orange-400"></span><span class="text-orange-400 animate-pulse">|</span> Needs!</h1>
+            <p class="text-lg md:text-xl text-white mb-10 opacity-90 leading-relaxed max-w-lg">Premium food, trendy accessories, and expert care—delivered straight to your doorstep.</p>
+            <div class="flex flex-col sm:flex-row gap-5">
+                <a href="#shop" class="group relative px-10 py-4 bg-orange-500 text-white rounded-full font-bold text-lg overflow-hidden transition-all hover:bg-orange-600 hover:shadow-[0_0_20px_rgba(249,115,22,0.8)] text-center"><span class="relative z-10">Shop Now 🐾</span></a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<section id="shop" class="py-20 max-w-7xl mx-auto px-6">
+    <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-gray-800">Featured Products</h2>
+        <p class="text-gray-500">Best sellers at TineyTails</p>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+        <div class="bg-white rounded-2xl p-4 shadow-sm hover:shadow-xl transition-all border border-gray-100">
+            <img src="https://www.tenderandtruepet.com/cdn/shop/files/SmallBreed-Chicken.jpg?v=1707944832&width=720" class="w-full h-56 object-cover rounded-xl mb-4" alt="Puppy Food">
+            <h3 class="text-xl font-bold text-gray-800">Organic Puppy Food</h3>
+            <div class="flex justify-between items-center mt-4">
+                <span class="text-2xl font-bold text-green-600">$18.00</span>
+                <button onclick="orderViaWhatsApp('Organic Puppy Food', '18.00', 'https://www.tenderandtruepet.com/cdn/shop/files/SmallBreed-Chicken.jpg')" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg font-bold flex items-center gap-2">Buy via WhatsApp</button>
+            </div>
+        </div>
+        <div class="bg-white rounded-2xl p-4 shadow-sm hover:shadow-xl transition-all border border-gray-100">
+            <img src="https://www.tenderandtruepet.com/cdn/shop/files/Square-3lbWhitefsih.png?v=1706114909&width=720" class="w-full h-56 object-cover rounded-xl mb-4" alt="Cat Food">
+            <h3 class="text-xl font-bold text-gray-800">Organic Cat Food</h3>
+            <div class="flex justify-between items-center mt-4">
+                <span class="text-2xl font-bold text-green-600">$18.00</span>
+                <button onclick="orderViaWhatsApp('Organic Cat Food', '18.00', 'https://www.tenderandtruepet.com/cdn/shop/files/Square-3lbWhitefsih.png')" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg font-bold flex items-center gap-2">Buy via WhatsApp</button>
+            </div>
+        </div>
+        <div class="bg-white rounded-2xl p-4 shadow-sm hover:shadow-xl transition-all border border-gray-100">
+            <img src="https://pabloandco.net/cdn/shop/files/2025-11-14-MerryandBright-3895.jpg?v=1763674056&width=823" class="w-full h-56 object-cover rounded-xl mb-4" alt="Pet Harness">
+            <h3 class="text-xl font-bold text-gray-800">Pet Harness</h3>
+            <div class="flex justify-between items-center mt-4">
+                <span class="text-2xl font-bold text-green-600">$12.50</span>
+                <button onclick="orderViaWhatsApp('Blue Pet Harness', '12.50', 'https://pabloandco.net/cdn/shop/files/2025-11-14-MerryandBright-3895.jpg')" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg font-bold flex items-center gap-2">Buy via WhatsApp</button>
+            </div>
+        </div>
+    </div> 
+</section>
+
+<section class="py-16 bg-white overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="flex justify-between items-end mb-8">
+            <h2 class="text-3xl font-bold text-gray-800">Nutritious Pet Food</h2>
+            <div class="flex gap-3">
+                <button onclick="slide('left')" class="bg-gray-100 hover:bg-orange-500 hover:text-white p-3 rounded-full shadow-sm">←</button>
+                <button onclick="slide('right')" class="bg-gray-100 hover:bg-orange-500 hover:text-white p-3 rounded-full shadow-sm">→</button>
+            </div>
+        </div>
+        <div id="foodCarousel" class="flex overflow-x-auto gap-6 pb-8 snap-x snap-mandatory scroll-smooth" style="scrollbar-width: none;">
+            <div class="min-w-[280px] md:min-w-[320px] snap-start bg-orange-50 rounded-3xl p-6 border border-orange-100">
+                <img src="https://www.tenderandtruepet.com/cdn/shop/files/Turkey_LiverDog-CanandKibble_812c9271-03ab-413e-814f-e878d755496b.jpg" class="w-full h-40 object-cover rounded-2xl mb-4">
+                <h3 class="font-bold text-lg text-gray-800">Adult Dry Dog Food</h3>
+                <div class="flex justify-between items-center mt-4">
+                    <span class="font-bold text-orange-600 text-xl">$22.00</span>
+                    <button onclick="orderViaWhatsApp('Adult Dry Dog Food', '22.00', 'https://www.tenderandtruepet.com/cdn/shop/files/Turkey_LiverDog-CanandKibble_812c9271-03ab-413e-814f-e878d755496b.jpg')" class="bg-white text-orange-500 border border-orange-500 px-4 py-2 rounded-xl font-bold hover:bg-orange-500 hover:text-white transition">Buy</button>
+                </div>
+            </div>
+            <div class="min-w-[280px] md:min-w-[320px] snap-start bg-orange-50 rounded-3xl p-6 border border-orange-100">
+                <img src="https://www.tenderandtruepet.com/cdn/shop/files/chamberlain.casa.cats7.jpg" class="w-full h-40 object-cover rounded-2xl mb-4">
+                <h3 class="font-bold text-lg text-gray-800">Gourmet Wet Cat Food</h3>
+                <div class="flex justify-between items-center mt-4">
+                    <span class="font-bold text-orange-600 text-xl">$14.50</span>
+                    <button onclick="orderViaWhatsApp('Gourmet Wet Cat Food', '14.50', 'https://www.tenderandtruepet.com/cdn/shop/files/chamberlain.casa.cats7.jpg')" class="bg-white text-orange-500 border border-orange-500 px-4 py-2 rounded-xl font-bold hover:bg-orange-500 hover:text-white transition">Buy</button>
+                </div>
+            </div>
+             <div class="min-w-[280px] md:min-w-[320px] snap-start bg-orange-50 rounded-3xl p-6 border border-orange-100">
+                <img src="https://www.tenderandtruepet.com/cdn/shop/files/chamberlain.casa.cats7.jpg" class="w-full h-40 object-cover rounded-2xl mb-4">
+                <h3 class="font-bold text-lg text-gray-800">Gourmet Wet Cat Food</h3>
+                <div class="flex justify-between items-center mt-4">
+                    <span class="font-bold text-orange-600 text-xl">$14.50</span>
+                    <button onclick="orderViaWhatsApp('Gourmet Wet Cat Food', '14.50', 'https://www.tenderandtruepet.com/cdn/shop/files/chamberlain.casa.cats7.jpg')" class="bg-white text-orange-500 border border-orange-500 px-4 py-2 rounded-xl font-bold hover:bg-orange-500 hover:text-white transition">Buy</button>
+                </div>
+            </div>
+             <div class="min-w-[280px] md:min-w-[320px] snap-start bg-orange-50 rounded-3xl p-6 border border-orange-100">
+                <img src="https://www.tenderandtruepet.com/cdn/shop/files/chamberlain.casa.cats7.jpg" class="w-full h-40 object-cover rounded-2xl mb-4">
+                <h3 class="font-bold text-lg text-gray-800">Gourmet Wet Cat Food</h3>
+                <div class="flex justify-between items-center mt-4">
+                    <span class="font-bold text-orange-600 text-xl">$14.50</span>
+                    <button onclick="orderViaWhatsApp('Gourmet Wet Cat Food', '14.50', 'https://www.tenderandtruepet.com/cdn/shop/files/chamberlain.casa.cats7.jpg')" class="bg-white text-orange-500 border border-orange-500 px-4 py-2 rounded-xl font-bold hover:bg-orange-500 hover:text-white transition">Buy</button>
+                </div>
+            </div>
+             <div class="min-w-[280px] md:min-w-[320px] snap-start bg-orange-50 rounded-3xl p-6 border border-orange-100">
+                <img src="https://www.tenderandtruepet.com/cdn/shop/files/chamberlain.casa.cats7.jpg" class="w-full h-40 object-cover rounded-2xl mb-4">
+                <h3 class="font-bold text-lg text-gray-800">Gourmet Wet Cat Food</h3>
+                <div class="flex justify-between items-center mt-4">
+                    <span class="font-bold text-orange-600 text-xl">$14.50</span>
+                    <button onclick="orderViaWhatsApp('Gourmet Wet Cat Food', '14.50', 'https://www.tenderandtruepet.com/cdn/shop/files/chamberlain.casa.cats7.jpg')" class="bg-white text-orange-500 border border-orange-500 px-4 py-2 rounded-xl font-bold hover:bg-orange-500 hover:text-white transition">Buy</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="paw-playground" class="relative h-[320px] w-full bg-orange-50 overflow-hidden border-y border-orange-100">
+    <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <h2 class="text-4xl font-bold text-orange-200 uppercase tracking-widest opacity-50">TineyTails World</h2>
+    </div>
+</section>
+
+
+<section id="dog-kingdom" class="relative py-20 bg-white overflow-hidden">
+    
+    <div id="paw-container" class="absolute inset-0 pointer-events-none z-0 opacity-30"></div>
+
+    <div class="max-w-7xl mx-auto px-6 relative z-10">
+        
+        <div class="flex flex-col md:flex-row items-center gap-12 mb-20">
+            <div class="md:w-1/2">
+                <span class="bg-orange-100 text-orange-600 px-4 py-1 rounded-full text-sm font-bold uppercase tracking-widest">Exclusive Dog Zone</span>
+                <h2 class="text-5xl md:text-6xl font-extrabold text-gray-900 mt-4 mb-6 leading-tight">
+                    The Ultimate <br><span class="text-orange-500">Dog Kingdom</span> 🐕
+                </h2>
+                <p class="text-lg text-gray-600 mb-8">Everything from premium nutrition to smart training gear, all in one place for your best friend.</p>
+                <div class="flex flex-wrap gap-4">
+                    <div class="flex items-center gap-2 bg-gray-50 p-3 rounded-2xl border border-gray-100">
+                        <span class="text-2xl">🦴</span>
+                        <span class="font-bold text-gray-700">Health First</span>
+                    </div>
+                    <div class="flex items-center gap-2 bg-gray-50 p-3 rounded-2xl border border-gray-100">
+                        <span class="text-2xl">🎓</span>
+                        <span class="font-bold text-gray-700">Expert Training</span>
+                    </div>
+                </div>
+            </div>
+            <div class="md:w-1/2">
+                <img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&q=80&w=800" class="rounded-[2rem] shadow-2xl border-8 border-white" alt="Dogs Playing">
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
+            <div class="bg-orange-50 p-8 rounded-3xl border border-orange-100">
+                <h3 class="text-2xl font-bold text-gray-800 mb-2">Puppy Growth</h3>
+                <p class="text-gray-600 mb-4">Essential nutrients for developing bones and brain function.</p>
+                <button onclick="orderViaWhatsApp('Puppy Starter Kit', '45.00', 'https://images.unsplash.com/photo-1591769225440-811ad7d62ca2?w=400')" class="text-orange-600 font-bold hover:gap-2 flex items-center transition-all">Shop Kit <span class="ml-1">→</span></button>
+            </div>
+            <div class="bg-blue-50 p-8 rounded-3xl border border-blue-100">
+                <h3 class="text-2xl font-bold text-gray-800 mb-2">Senior Care</h3>
+                <p class="text-gray-600 mb-4">Joint support and easy-to-digest meals for older dogs.</p>
+                <button onclick="orderViaWhatsApp('Senior Joint Support', '32.00', 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400')" class="text-blue-600 font-bold hover:gap-2 flex items-center transition-all">View Supplies <span class="ml-1">→</span></button>
+            </div>
+            <div class="bg-green-50 p-8 rounded-3xl border border-green-100">
+                <h3 class="text-2xl font-bold text-gray-800 mb-2">Training Academy</h3>
+                <p class="text-gray-600 mb-4">Professional gear used by top trainers worldwide.</p>
+                <button onclick="orderViaWhatsApp('Pro Training Set', '55.00', 'https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?w=400')" class="text-green-600 font-bold hover:gap-2 flex items-center transition-all">Start Training <span class="ml-1">→</span></button>
+            </div>
+        </div>
+
+        <div class="bg-gray-50 rounded-[3rem] p-10 border border-gray-100">
+            <div class="flex justify-between items-center mb-8">
+                <h3 class="text-3xl font-bold text-gray-800">Featured Dog Essentials</h3>
+                <div class="flex gap-2">
+                    <button onclick="slideDog('left')" class="p-3 bg-white rounded-full shadow-md hover:bg-orange-500 hover:text-white transition">←</button>
+                    <button onclick="slideDog('right')" class="p-3 bg-white rounded-full shadow-md hover:bg-orange-500 hover:text-white transition">→</button>
+                </div>
+            </div>
+            
+            <div id="dogCarousel" class="flex overflow-x-auto gap-6 pb-4 snap-x snap-mandatory no-scrollbar" style="scrollbar-width: none;">
+                <div class="min-w-[300px] snap-start bg-white p-5 rounded-3xl shadow-sm border border-gray-100">
+                    <img src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=400" class="w-full h-48 object-cover rounded-2xl mb-4">
+                    <h4 class="font-bold text-gray-800">Durable Chew Toy</h4>
+                    <div class="flex justify-between items-center mt-4">
+                        <span class="text-orange-600 font-bold">$14.99</span>
+                        <button onclick="orderViaWhatsApp('Chew Toy', '14.99', 'https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=400')" class="bg-orange-500 text-white px-4 py-2 rounded-xl text-sm font-bold">Buy Now</button>
+                    </div>
+                </div>
+                <div class="min-w-[300px] snap-start bg-white p-5 rounded-3xl shadow-sm border border-gray-100">
+                    <img src="https://images.unsplash.com/photo-1544568100-847a948585b9?w=400" class="w-full h-48 object-cover rounded-2xl mb-4">
+                    <h4 class="font-bold text-gray-800">Reflective Harness</h4>
+                    <div class="flex justify-between items-center mt-4">
+                        <span class="text-orange-600 font-bold">$24.00</span>
+                        <button onclick="orderViaWhatsApp('Harness', '24.00', 'https://images.unsplash.com/photo-1544568100-847a948585b9?w=400')" class="bg-orange-500 text-white px-4 py-2 rounded-xl text-sm font-bold">Buy Now</button>
+                    </div>
+                </div>
+                <div class="min-w-[300px] snap-start bg-white p-5 rounded-3xl shadow-sm border border-gray-100">
+                    <img src="https://images.unsplash.com/photo-1589924691995-400dc9ecc119?w=400" class="w-full h-48 object-cover rounded-2xl mb-4">
+                    <h4 class="font-bold text-gray-800">Organic Dog Kibble</h4>
+                    <div class="flex justify-between items-center mt-4">
+                        <span class="text-orange-600 font-bold">$39.00</span>
+                        <button onclick="orderViaWhatsApp('Kibble', '39.00', 'https://images.unsplash.com/photo-1589924691995-400dc9ecc119?w=400')" class="bg-orange-500 text-white px-4 py-2 rounded-xl text-sm font-bold">Buy Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section id="cat-empire" class="relative py-20 bg-white overflow-hidden">
+    
+    <div id="cat-paw-container" class="absolute inset-0 pointer-events-none z-0 opacity-30"></div>
+
+    <div class="max-w-7xl mx-auto px-6 relative z-10">
+        
+        <div class="flex flex-col md:flex-row-reverse items-center gap-12 mb-20">
+            <div class="md:w-1/2">
+                <span class="bg-teal-100 text-teal-600 px-4 py-1 rounded-full text-sm font-bold uppercase tracking-widest">Royal Cat Collection</span>
+                <h2 class="text-5xl md:text-6xl font-extrabold text-gray-900 mt-4 mb-6 leading-tight">
+                    The Majestic <br><span class="text-teal-500">Cat Empire</span> 🐱
+                </h2>
+                <p class="text-lg text-gray-600 mb-8">Premium silk-touch bedding, gourmet seafood diets, and climbing towers designed for feline royalty.</p>
+                <div class="flex flex-wrap gap-4">
+                    <div class="flex items-center gap-2 bg-gray-50 p-3 rounded-2xl border border-gray-100">
+                        <span class="text-2xl">🐟</span>
+                        <span class="font-bold text-gray-700">Fresh Gourmet</span>
+                    </div>
+                    <div class="flex items-center gap-2 bg-gray-50 p-3 rounded-2xl border border-gray-100">
+                        <span class="text-2xl">🏰</span>
+                        <span class="font-bold text-gray-700">Luxury Living</span>
+                    </div>
+                </div>
+            </div>
+            <div class="md:w-1/2">
+                <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&q=80&w=800" class="rounded-[2rem] shadow-2xl border-8 border-white" alt="Majestic Cat">
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
+            <div class="bg-teal-50 p-8 rounded-3xl border border-teal-100">
+                <h3 class="text-2xl font-bold text-gray-800 mb-2">Kitten Nursery</h3>
+                <p class="text-gray-600 mb-4">High-protein mousse and soft toys for your growing little hunter.</p>
+                <button onclick="orderViaWhatsApp('Kitten Starter Kit', '38.00', 'https://images.unsplash.com/photo-1592194996308-7b43878e84a6?w=400')" class="text-teal-600 font-bold hover:gap-2 flex items-center transition-all">Shop Kitten <span class="ml-1">→</span></button>
+            </div>
+            <div class="bg-purple-50 p-8 rounded-3xl border border-purple-100">
+                <h3 class="text-2xl font-bold text-gray-800 mb-2">Indoor Wellness</h3>
+                <p class="text-gray-600 mb-4">Anti-hairball formulas and interactive laser chasers.</p>
+                <button onclick="orderViaWhatsApp('Indoor Health Bundle', '29.00', 'https://images.unsplash.com/photo-1548802673-380ab8ebc7b7?w=400')" class="text-purple-600 font-bold hover:gap-2 flex items-center transition-all">View Health <span class="ml-1">→</span></button>
+            </div>
+            <div class="bg-pink-50 p-8 rounded-3xl border border-pink-100">
+                <h3 class="text-2xl font-bold text-gray-800 mb-2">Scratch & Climb</h3>
+                <p class="text-gray-600 mb-4">Multi-level towers and premium sisal scratching posts.</p>
+                <button onclick="orderViaWhatsApp('Luxury Cat Tower', '85.00', 'https://images.unsplash.com/photo-1545249390-6bdfa286032f?w=400')" class="text-pink-600 font-bold hover:gap-2 flex items-center transition-all">Explore Furniture <span class="ml-1">→</span></button>
+            </div>
+        </div>
+
+        <div class="bg-teal-50/30 rounded-[3rem] p-10 border border-teal-50">
+            <div class="flex justify-between items-center mb-8">
+                <h3 class="text-3xl font-bold text-gray-800">Feline Favorites</h3>
+                <div class="flex gap-2">
+                    <button onclick="slideCat('left')" class="p-3 bg-white rounded-full shadow-md hover:bg-teal-500 hover:text-white transition">←</button>
+                    <button onclick="slideCat('right')" class="p-3 bg-white rounded-full shadow-md hover:bg-teal-500 hover:text-white transition">→</button>
+                </div>
+            </div>
+            
+            <div id="catCarousel" class="flex overflow-x-auto gap-6 pb-4 snap-x snap-mandatory no-scrollbar" style="scrollbar-width: none;">
+                <div class="min-w-[300px] snap-start bg-white p-5 rounded-3xl shadow-sm border border-gray-100">
+                    <img src="https://images.unsplash.com/photo-1513245552603-6701a070f7e9?w=400" class="w-full h-48 object-cover rounded-2xl mb-4">
+                    <h4 class="font-bold text-gray-800">Feather Teaser Wand</h4>
+                    <div class="flex justify-between items-center mt-4">
+                        <span class="text-teal-600 font-bold">$9.99</span>
+                        <button onclick="orderViaWhatsApp('Feather Wand', '9.99', 'https://images.unsplash.com/photo-1513245552603-6701a070f7e9?w=400')" class="bg-teal-500 text-white px-4 py-2 rounded-xl text-sm font-bold">Buy Now</button>
+                    </div>
+                </div>
+                <div class="min-w-[300px] snap-start bg-white p-5 rounded-3xl shadow-sm border border-gray-100">
+                    <img src="https://images.unsplash.com/photo-1548247416-ec66f4900b2e?w=400" class="w-full h-48 object-cover rounded-2xl mb-4">
+                    <h4 class="font-bold text-gray-800">Ceramic Water Fountain</h4>
+                    <div class="flex justify-between items-center mt-4">
+                        <span class="text-teal-600 font-bold">$45.00</span>
+                        <button onclick="orderViaWhatsApp('Water Fountain', '45.00', 'https://images.unsplash.com/photo-1548247416-ec66f4900b2e?w=400')" class="bg-teal-500 text-white px-4 py-2 rounded-xl text-sm font-bold">Buy Now</button>
+                    </div>
+                </div>
+                <div class="min-w-[300px] snap-start bg-white p-5 rounded-3xl shadow-sm border border-gray-100">
+                    <img src="https://images.unsplash.com/photo-1574158622682-e40e69881006?w=400" class="w-full h-48 object-cover rounded-2xl mb-4">
+                    <h4 class="font-bold text-gray-800">Catnip Infused Pillow</h4>
+                    <div class="flex justify-between items-center mt-4">
+                        <span class="text-teal-600 font-bold">$12.50</span>
+                        <button onclick="orderViaWhatsApp('Catnip Pillow', '12.50', 'https://images.unsplash.com/photo-1574158622682-e40e69881006?w=400')" class="bg-teal-500 text-white px-4 py-2 rounded-xl text-sm font-bold">Buy Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section id="aqua-kingdom" class="relative py-20 bg-white overflow-hidden">
+    
+    <div id="fish-container" class="absolute inset-0 pointer-events-none z-0 opacity-40"></div>
+
+    <div class="max-w-7xl mx-auto px-6 relative z-10">
+        
+        <div class="flex flex-col md:flex-row items-center gap-12 mb-20">
+            <div class="md:w-1/2">
+                <span class="bg-blue-100 text-blue-600 px-4 py-1 rounded-full text-sm font-bold uppercase tracking-widest">Underwater World</span>
+                <h2 class="text-5xl md:text-6xl font-extrabold text-gray-900 mt-4 mb-6 leading-tight">
+                    The Infinite <br><span class="text-blue-500">Aqua Kingdom</span> 🐠
+                </h2>
+                <p class="text-lg text-gray-600 mb-8">Crystal clear habitats, high-protein flakes, and vibrant LED lighting to bring your underwater sanctuary to life.</p>
+                <div class="flex flex-wrap gap-4">
+                    <div class="flex items-center gap-2 bg-gray-50 p-3 rounded-2xl border border-gray-100">
+                        <span class="text-2xl">💧</span>
+                        <span class="font-bold text-gray-700">Pure Water</span>
+                    </div>
+                    <div class="flex items-center gap-2 bg-gray-50 p-3 rounded-2xl border border-gray-100">
+                        <span class="text-2xl">🌿</span>
+                        <span class="font-bold text-gray-700">Live Plants</span>
+                    </div>
+                </div>
+            </div>
+            <div class="md:w-1/2">
+                <img src="https://images.unsplash.com/photo-1522069169874-c58ec4b76be5?auto=format&fit=crop&q=80&w=800" class="rounded-[2rem] shadow-2xl h-[55vh] w-[100%] border-8 border-white" alt="Colorful Fish Tank">
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
+            <div class="bg-blue-50 p-8 rounded-3xl border border-blue-100">
+                <h3 class="text-2xl font-bold text-gray-800 mb-2">Nano Tanks</h3>
+                <p class="text-gray-600 mb-4">Perfect desktop setups for Bettas and Shrimp enthusiasts.</p>
+                <button onclick="orderViaWhatsApp('Nano Tank Starter', '55.00', 'https://images.unsplash.com/photo-1544436484-67201c10d32a?w=400')" class="text-blue-600 font-bold hover:gap-2 flex items-center transition-all">View Tanks <span class="ml-1">→</span></button>
+            </div>
+            <div class="bg-cyan-50 p-8 rounded-3xl border border-cyan-100">
+                <h3 class="text-2xl font-bold text-gray-800 mb-2">Coral Health</h3>
+                <p class="text-gray-600 mb-4">Calcium supplements and specialized reef lighting systems.</p>
+                <button onclick="orderViaWhatsApp('Reef Care Kit', '42.00', 'https://images.unsplash.com/photo-1546024077-c51000b06437?w=400')" class="text-cyan-600 font-bold hover:gap-2 flex items-center transition-all">Shop Reef <span class="ml-1">→</span></button>
+            </div>
+            <div class="bg-indigo-50 p-8 rounded-3xl border border-indigo-100">
+                <h3 class="text-2xl font-bold text-gray-800 mb-2">Smart Filtration</h3>
+                <p class="text-gray-600 mb-4">Silent external filters and automated water testers.</p>
+                <button onclick="orderViaWhatsApp('Silent Filter Pro', '38.00', 'https://images.unsplash.com/photo-1509420301924-6a960b135667?w=400')" class="text-indigo-600 font-bold hover:gap-2 flex items-center transition-all">View Filters <span class="ml-1">→</span></button>
+            </div>
+        </div>
+
+        <div class="bg-blue-50/30 rounded-[3rem] p-10 border border-blue-50">
+            <div class="flex justify-between items-center mb-8">
+                <h3 class="text-3xl font-bold text-gray-800">Aquatic Best-Sellers</h3>
+                <div class="flex gap-2">
+                    <button onclick="slideFish('left')" class="p-3 bg-white rounded-full shadow-md hover:bg-blue-500 hover:text-white transition">←</button>
+                    <button onclick="slideFish('right')" class="p-3 bg-white rounded-full shadow-md hover:bg-blue-500 hover:text-white transition">→</button>
+                </div>
+            </div>
+            
+            <div id="fishCarousel" class="flex overflow-x-auto gap-6 pb-4 snap-x snap-mandatory no-scrollbar" style="scrollbar-width: none;">
+                <div class="min-w-[300px] snap-start bg-white p-5 rounded-3xl shadow-sm border border-gray-100">
+                    <img src="https://images.unsplash.com/photo-1620000617482-821324eb9a14?w=400" class="w-full h-48 object-cover rounded-2xl mb-4">
+                    <h4 class="font-bold text-gray-800">Premium Betta Pellets</h4>
+                    <div class="flex justify-between items-center mt-4">
+                        <span class="text-blue-600 font-bold">$8.50</span>
+                        <button onclick="orderViaWhatsApp('Betta Food', '8.50', 'https://images.unsplash.com/photo-1620000617482-821324eb9a14?w=400')" class="bg-blue-500 text-white px-4 py-2 rounded-xl text-sm font-bold">Buy Now</button>
+                    </div>
+                </div>
+                <div class="min-w-[300px] snap-start bg-white p-5 rounded-3xl shadow-sm border border-gray-100">
+                    <img src="https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?w=400" class="w-full h-48 object-cover rounded-2xl mb-4">
+                    <h4 class="font-bold text-gray-800">Auto-Fish Feeder</h4>
+                    <div class="flex justify-between items-center mt-4">
+                        <span class="text-blue-600 font-bold">$22.00</span>
+                        <button onclick="orderViaWhatsApp('Auto Feeder', '22.00', 'https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?w=400')" class="bg-blue-500 text-white px-4 py-2 rounded-xl text-sm font-bold">Buy Now</button>
+                    </div>
+                </div>
+                <div class="min-w-[300px] snap-start bg-white p-5 rounded-3xl shadow-sm border border-gray-100">
+                    <img src="https://images.unsplash.com/photo-1544436484-67201c10d32a?w=400" class="w-full h-48 object-cover rounded-2xl mb-4">
+                    <h4 class="font-bold text-gray-800">LED Mood Light</h4>
+                    <div class="flex justify-between items-center mt-4">
+                        <span class="text-blue-600 font-bold">$19.99</span>
+                        <button onclick="orderViaWhatsApp('LED Light', '19.99', 'https://images.unsplash.com/photo-1544436484-67201c10d32a?w=400')" class="bg-blue-500 text-white px-4 py-2 rounded-xl text-sm font-bold">Buy Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<footer class="bg-gray-800 text-white py-10 mt-10">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+        <p class="text-xl font-bold mb-4">TineyTails 🐾</p>
+        <p class="text-gray-400">© 2025 TineyTails Pet Shop. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+    function createFloatingPaw() {
+        const playground = document.getElementById('paw-playground');
+        const paw = document.createElement('div');
+        
+        // Randomly choose Dog or Cat paw icon
+        const isCat = Math.random() > 0.5;
+        paw.innerHTML = isCat ? '🐱🐾' : '🐶🐾';
+        paw.className = 'paw-icon text-2xl';
+
+        // Randomize Directions
+        const directions = ['moveLR', 'moveRL', 'moveUD'];
+        const chosenDir = directions[Math.floor(Math.random() * directions.length)];
+        
+        // Set Positioning based on direction
+        if (chosenDir === 'moveUD') {
+            paw.style.left = Math.random() * 100 + 'vw';
+            paw.style.animation = `moveUD ${3 + Math.random() * 4}s linear forwards`;
+        } else {
+            paw.style.top = Math.random() * 100 + '%';
+            paw.style.animation = `${chosenDir} ${5 + Math.random() * 5}s linear forwards`;
+        }
+
+        playground.appendChild(paw);
+
+        // Remove paw after animation ends to keep site fast
+        setTimeout(() => {
+            paw.remove();
+        }, 200000);
+    }
+
+    // Generate a new paw every 800ms
+    setInterval(createFloatingPaw, 800);
+</script>
+
+<!-- dog section code  -->
+
+<script>
+    // 1. Floating Paws Animation (L-R, R-L, U-D)
+    function createDogPaw() {
+        const container = document.getElementById('paw-container');
+        const paw = document.createElement('div');
+        const directions = [
+            { name: 'moveLR', style: `top: ${Math.random()*100}%; animation: moveLR 8s linear forwards` },
+            { name: 'moveRL', style: `top: ${Math.random()*100}%; animation: moveRL 8s linear forwards` },
+            { name: 'moveUD', style: `left: ${Math.random()*100}%; animation: moveUD 6s linear forwards` }
+        ];
+        
+        const dir = directions[Math.floor(Math.random() * directions.length)];
+        paw.innerHTML = '🐾';
+        paw.className = 'absolute text-2xl text-orange-400';
+        paw.style.cssText = dir.style;
+        
+        container.appendChild(paw);
+        setTimeout(() => paw.remove(), 8000);
+    }
+    setInterval(createDogPaw, 1000);
+
+    // 2. Self-Animating Carousel (Every 1.5s)
+    const dogCarousel = document.getElementById('dogCarousel');
+    let dogAutoPlay = setInterval(() => slideDog('right'), 1500);
+
+    function slideDog(direction) {
+        const scrollAmt = 320;
+        if(direction === 'right') {
+            if (dogCarousel.scrollLeft + dogCarousel.clientWidth >= dogCarousel.scrollWidth - 10) {
+                dogCarousel.scrollTo({ left: 0, behavior: 'smooth' });
+            } else {
+                dogCarousel.scrollBy({ left: scrollAmt, behavior: 'smooth' });
+            }
+        } else {
+            dogCarousel.scrollBy({ left: -scrollAmt, behavior: 'smooth' });
+        }
+    }
+
+    // Stop animation on hover
+    dogCarousel.addEventListener('mouseenter', () => clearInterval(dogAutoPlay));
+    dogCarousel.addEventListener('mouseleave', () => dogAutoPlay = setInterval(() => slideDog('right'), 1500));
+</script>
+
+<style>
+    /* Animation Keyframes */
+    @keyframes moveLR { from { left: -50px; opacity: 0; } 50% { opacity: 0.5; } to { left: 100%; opacity: 0; } }
+    @keyframes moveRL { from { left: 100%; opacity: 0; } 50% { opacity: 0.5; } to { left: -50px; opacity: 0; } }
+    @keyframes moveUD { from { top: -50px; opacity: 0; } 50% { opacity: 0.5; } to { top: 100%; opacity: 0; } }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+</style>
+
+<!-- dog section code  -->
+
+<!-- cat section code  -->
+
+<script>
+    // 1. Floating Cat Paws & Fish Animation
+    function createCatPaw() {
+        const container = document.getElementById('cat-paw-container');
+        const element = document.createElement('div');
+        const items = ['🐾', '🐱', '🐟', '🦴'];
+        const directions = [
+            { name: 'moveLR', style: `top: ${Math.random()*100}%; animation: moveLR 10s linear forwards` },
+            { name: 'moveRL', style: `top: ${Math.random()*100}%; animation: moveRL 10s linear forwards` },
+            { name: 'moveUD', style: `left: ${Math.random()*100}%; animation: moveUD 7s linear forwards` }
+        ];
+        
+        const dir = directions[Math.floor(Math.random() * directions.length)];
+        element.innerHTML = items[Math.floor(Math.random() * items.length)];
+        element.className = 'absolute text-2xl text-teal-300';
+        element.style.cssText = dir.style;
+        
+        container.appendChild(element);
+        setTimeout(() => element.remove(), 10000);
+    }
+    setInterval(createCatPaw, 1200);
+
+    // 2. Self-Animating Cat Carousel (Every 1.5s)
+    const catCarousel = document.getElementById('catCarousel');
+    let catAutoPlay = setInterval(() => slideCat('right'), 1500);
+
+    function slideCat(direction) {
+        const scrollAmt = 320;
+        if(direction === 'right') {
+            if (catCarousel.scrollLeft + catCarousel.clientWidth >= catCarousel.scrollWidth - 10) {
+                catCarousel.scrollTo({ left: 0, behavior: 'smooth' });
+            } else {
+                catCarousel.scrollBy({ left: scrollAmt, behavior: 'smooth' });
+            }
+        } else {
+            catCarousel.scrollBy({ left: -scrollAmt, behavior: 'smooth' });
+        }
+    }
+
+    // Stop animation on hover
+    catCarousel.addEventListener('mouseenter', () => clearInterval(catAutoPlay));
+    catCarousel.addEventListener('mouseleave', () => catAutoPlay = setInterval(() => slideCat('right'), 1500));
+</script>
+
+<!-- cat section code  -->
+
+<!-- fish section code  -->
+
+<script>
+    // 1. Floating Bubbles & Fish Animation
+    function createAquaBubble() {
+        const container = document.getElementById('fish-container');
+        const element = document.createElement('div');
+        const items = ['🫧', '🐠', '🦐', '🐡', '🐚'];
+        const directions = [
+            { name: 'moveLR', style: `top: ${Math.random()*100}%; animation: moveLR 12s linear forwards` },
+            { name: 'moveRL', style: `top: ${Math.random()*100}%; animation: moveRL 12s linear forwards` },
+            { name: 'moveUD', style: `left: ${Math.random()*100}%; animation: moveUD 10s linear reverse` } // Bubbles float UP
+        ];
+        
+        const dir = directions[Math.floor(Math.random() * directions.length)];
+        element.innerHTML = items[Math.floor(Math.random() * items.length)];
+        element.className = 'absolute text-2xl text-blue-300';
+        element.style.cssText = dir.style;
+        
+        container.appendChild(element);
+        setTimeout(() => element.remove(), 12000);
+    }
+    setInterval(createAquaBubble, 900);
+
+    // 2. Self-Animating Fish Carousel (Every 1.5s)
+    const fishCarousel = document.getElementById('fishCarousel');
+    let fishAutoPlay = setInterval(() => slideFish('right'), 1500);
+
+    function slideFish(direction) {
+        const scrollAmt = 320;
+        if(direction === 'right') {
+            if (fishCarousel.scrollLeft + fishCarousel.clientWidth >= fishCarousel.scrollWidth - 10) {
+                fishCarousel.scrollTo({ left: 0, behavior: 'smooth' });
+            } else {
+                fishCarousel.scrollBy({ left: scrollAmt, behavior: 'smooth' });
+            }
+        } else {
+            fishCarousel.scrollBy({ left: -scrollAmt, behavior: 'smooth' });
+        }
+    }
+
+    // Stop animation on hover
+    fishCarousel.addEventListener('mouseenter', () => clearInterval(fishAutoPlay));
+    fishCarousel.addEventListener('mouseleave', () => fishAutoPlay = setInterval(() => slideFish('right'), 1500));
+</script>
+
+<!-- fish section code  -->
+
+
+
+
+<script>
+    const foodCarousel = document.getElementById('foodCarousel');
+    let foodAutoTimer;
+
+    // 1. Core Scroll Function
+    function slide(direction) {
+        const scrollAmount = 340; // Adjust based on card width + gap
+        if (direction === 'left') {
+            foodCarousel.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        } else {
+            // Check if we are at the end, if so, loop back to start
+            const maxScroll = foodCarousel.scrollWidth - foodCarousel.clientWidth;
+            if (foodCarousel.scrollLeft >= maxScroll - 10) {
+                foodCarousel.scrollTo({ left: 0, behavior: 'smooth' });
+            } else {
+                foodCarousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+            }
+        }
+        // Reset timer whenever a button is clicked
+        resetFoodTimer();
+    }
+
+    // 2. Auto-Play Function (1.5 Seconds)
+    function startFoodAutoPlay() {
+        foodAutoTimer = setInterval(() => {
+            slide('right');
+        }, 1500); // 1500ms = 1.5 seconds
+    }
+
+    // 3. Reset Timer Logic
+    function resetFoodTimer() {
+        clearInterval(foodAutoTimer);
+        startFoodAutoPlay();
+    }
+
+    // 4. Initialize & Pause on Hover
+    startFoodAutoPlay();
+
+    // Pause when user puts mouse over food to read/buy
+    foodCarousel.addEventListener('mouseenter', () => clearInterval(foodAutoTimer));
+    foodCarousel.addEventListener('mouseleave', startFoodAutoPlay);
+</script>
+
+<script>
+    // 1. Navbar Toggle
+    const openBtn = document.getElementById('open-menu');
+    const closeBtn = document.getElementById('close-menu');
+    const drawer = document.getElementById('mobile-drawer');
+    const overlay = document.getElementById('menu-overlay');
+    function toggleMenu() {
+        drawer.classList.toggle('translate-x-full');
+        overlay.classList.toggle('hidden');
+    }
+    openBtn.addEventListener('click', toggleMenu);
+    closeBtn.addEventListener('click', toggleMenu);
+    overlay.addEventListener('click', toggleMenu);
+
+    // 2. HERO CAROUSEL
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.hero-img');
+    function showNextSlide() {
+        slides[currentSlide].classList.replace('opacity-100', 'opacity-0');
+        currentSlide = (currentSlide + 1) % slides.length;
+        slides[currentSlide].classList.replace('opacity-0', 'opacity-100');
+    }
+    setInterval(showNextSlide, 4000);
+
+    // 3. WHATSAPP FUNCTION WITH IMAGE
+    function orderViaWhatsApp(itemName, price, imageUrl) {
+        const myNumber = "917838215474"; 
+        
+        // Formatting the message with the image URL for preview
+        const message = `🐾 *New Order from TineyTails Website* 🐾\n\n` +
+                        `*Product:* ${itemName}\n` +
+                        `*Price:* $${price}\n` +
+                        `*Image:* ${imageUrl}\n\n` +
+                        `Hi! I'm interested in buying this. Is it available?`;
+
+        const encodedMessage = encodeURIComponent(message);
+        const whatsappURL = `https://wa.me/${myNumber}?text=${encodedMessage}`;
+        
+        window.open(whatsappURL, '_blank');
+    }
+
+    // 4. TYPEWRITER
+    const textElement = document.getElementById("typewriter");
+    const words = ["Furry Friend", "Playful Puppy", "Sweet Kitten", "Best Buddy"];
+    let wordIndex = 0, charIndex = 0, isDeleting = false, typeSpeed = 150;
+    function type() {
+        const currentWord = words[wordIndex];
+        if (isDeleting) {
+            textElement.textContent = currentWord.substring(0, charIndex - 1);
+            charIndex--;
+            typeSpeed = 50; 
+        } else {
+            textElement.textContent = currentWord.substring(0, charIndex + 1);
+            charIndex++;
+            typeSpeed = 150;
+        }
+        if (!isDeleting && charIndex === currentWord.length) {
+            isDeleting = true; typeSpeed = 2000;
+        } else if (isDeleting && charIndex === 0) {
+            isDeleting = false; wordIndex = (wordIndex + 1) % words.length; typeSpeed = 500; 
+        }
+        setTimeout(type, typeSpeed);
+    }
+    document.addEventListener("DOMContentLoaded", type);
+
+    // 5. SLIDE FUNCTION
+    function slide(direction) {
+        const carousel = document.getElementById('foodCarousel');
+        const scrollAmount = 340;
+        direction === 'left' ? carousel.scrollBy({ left: -scrollAmount, behavior: 'smooth' }) : carousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+</script>
+
+</body>
+</html>
